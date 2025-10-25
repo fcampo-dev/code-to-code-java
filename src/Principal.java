@@ -9,7 +9,7 @@ public class Principal {
   public static void main(String[] args) {
 
     Scanner sc = new Scanner(System.in);
-    ArrayList<Curso> cursosDB = new ArrayList<>();
+    ArrayList<Curso> cursosDB = obtenerCursos();
 
 
     while (true) {
@@ -43,7 +43,7 @@ public class Principal {
 
   public static void pausa() {
     Scanner entrada = new Scanner(System.in);
-    System.out.println("Pulse ENTER para continuar...");
+    System.out.println("\nPulse ENTER para continuar...");
     entrada = new Scanner(System.in);
     entrada.nextLine();
     for (int i = 0; i < 20; ++i) {
@@ -54,36 +54,84 @@ public class Principal {
 
 
   public static void agregarCurso(ArrayList<Curso> cursosDB){
-    System.out.println("=============================");
-    System.out.println(" --- Creando Curso Nuevo --- ");
-    System.out.println("=============================");
+    System.out.println("=================================================================================================================");
+    System.out.println("------------------------------------------------ Creando Producto---- -------------------------------------------");
+    System.out.println("=================================================================================================================");
 
     Scanner sc = new Scanner(System.in);
     System.out.print("Título: ");
     String titulo = sc.nextLine();
-    System.out.print("Plataforma: ");
-    String plataforma = sc.nextLine();
+    System.out.print("Nivel: ");
+    String nivel = sc.nextLine();
+    System.out.print("Idioma: ");
+    String idioma = sc.nextLine();
     System.out.print("Duración (en horas): ");
     int duracionHoras = sc.nextInt();
     System.out.print("Precio: $");
     double precio = sc.nextDouble();
 
-    Curso nuevo = new Curso(titulo,plataforma,duracionHoras,precio);
+    Curso nuevo = new Curso(titulo,nivel,idioma,duracionHoras,precio);
     cursosDB.add(nuevo);
-    System.out.println("Curso creado: " + nuevo);
+    System.out.println("------------------------------------------------ Curso Creado ---------------------------------------------------");
     pausa();
   }
 
   public static void listarCursos(ArrayList<Curso> cursosDB){
-    System.out.println("============================");
-    System.out.println("--- Listado de Productos ---");
-    System.out.println("============================");
+    System.out.println("=================================================================================================================");
+    System.out.println("------------------------------------------------ Listado de Productos -------------------------------------------");
+    System.out.println("=================================================================================================================");
 
     if(cursosDB == null || cursosDB.isEmpty()){
       System.out.println("No hay cursos para mostrar");
     } else{
-      System.out.printf("| %-3s | %-35s | %-10s | %-20s | %-15s |%n",
-          "ID", "Nombre", "Precio", "Categor铆a", "Descripci贸n");
+      System.out.printf("| %-3s | %-35s | %-15s | %-15s | %-15s | %-10s |%n",
+          "ID", "TITULO", "NIVEL", "IDIOMA", "DURACION", "PRECIO");
     }
+
+    for(Curso cursos : cursosDB){
+      System.out.printf("| %-3s | %-35s | %-15s | %-15s | %-15s | %-10s |%n",
+          cursos.obtenerId(), cursos.obtenerTitulo(), cursos.obtenerNivel(), cursos.obtenerIdioma(), cursos.obtenerDuracionHoras()+"Hs", "$"+cursos.obtenerPrecio());
+    }
+    pausa();
+  }
+
+
+
+  public static ArrayList<Curso> obtenerCursos(){
+    ArrayList <Curso> cursos = new ArrayList<>();
+
+    cursos.add(new Curso(
+        "Java de cero a Experto",
+        "Principiante",
+        "Español",
+        14,
+        19999
+    ));
+    cursos.add(new Curso(
+        "Python: IA + BigData",
+        "Avanzado",
+        "Español",
+        20,
+        29999
+    ));
+
+    cursos.add(new Curso(
+        "Programacion Orientada a Objetos",
+        "Intermedio",
+        "Español",
+        8,
+        9999
+    ));
+
+    cursos.add(new Curso(
+        "Mejora tu Ingles con 5 min al día",
+        "Principiante",
+        "Español",
+        7,
+        8000
+    ));
+
+
+    return cursos;
   }
 }
